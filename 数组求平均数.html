@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		<script type="text/javascript">
+			// 需求: 求出给定数组的平均数
+			var ary = [12, 2345, 67, 98, 21, 3456, 789, 123]
+			// 1. 遍历求和再求平均数
+			let sum = 0
+			for (let i = 0; i < ary.length; i++) {
+				sum = sum + ary[i]
+			}
+			var ave1 = sum / ary.length
+			console.log('平均数是:', ave1)
+			
+			// 2. join之后再eval, 思想是: 先将数组拼接成可求和的字符串,然后再进行求平均
+			var doWords = ary.join('+')
+			var ave2 = eval(doWords) / ary.length
+			console.log('平均数是:', ave2)
+		</script>
+	</body>
+</html>

@@ -1,0 +1,97 @@
+// 定义变量
+@color: #e625dd;
+
+//  定义函数，一个变量
+.transform-scale(@val:1.2){
+	-webkit-transform: scale(@val);
+	-moz-transform: scale(@val);
+	-ms-transform: scale(@val);
+	-o-transform: scale(@val);
+	transform: scale(@val);
+}
+
+// 定义函数，多个变量
+.transition(@property:all, @duration:2000, @time-function:linear, @delay:0s){
+	-webkit-transition: @arguments;
+	-moz-transition: @arguments;
+	-ms-transition: @arguments;
+	-o-transition: @arguments;
+	transition: @arguments;
+}
+
+.box1{
+	position: absolute;
+	top: 0; bottom: 0; left: 0; right: 0;
+	margin: auto;
+	width: 200px;
+	height: 200px;
+	border: 1px solid red;
+	background-color: darkcyan;
+	// 使用变量
+	color: @color;
+	.transition(@duration: 2s);
+	
+	&:hover{
+		// 使用函数
+		.transform-scale(@val:1.5);
+		// lighten()可以使颜色变深或者变浅
+		background-color: lighten(darkcyan, 20%);
+		// darken()可以让颜色变深
+	}
+}
+.public2{
+	width: 200px;
+	height: 200px;
+}
+.box2{
+	.public2; // 表示征用.public的样式属性
+	background-color: lightcoral;
+}
+
+.public3(@x, @y){
+	@result: @x + @y
+}
+.box3{
+	// 利用函数之后的结果
+	.public3(100px, 200px);
+	width: 100px;
+	height: @result;
+	background-color: lightgreen;
+	border: 1px solid blue;
+}
+
+
+// 带条件的函数
+.public4(@x) when (@x>10){
+	background-color: lightcoral;
+}
+.public4(@x) when (@x< 10) and (@x > 0) {
+	background-color: lightblue;
+}
+.public4(@x) when (@x< 0){
+	background-color: darkgoldenrod;
+}
+
+.box4{
+	width: 200px;
+	height: 200px;
+	border: 1px solid darkgrey;
+	.public4(20);
+}
+
+
+
+// 带验证的函数
+.public5(@x) when (iscolor(@x)){
+	background-color: lightcoral;
+}
+.public5(@x) when (isnumber(@x)) {
+	background-color: lightblue;
+}
+
+.box5{
+	width: 200px;
+	height: 200px;
+	border: 1px solid darkblue;
+	.public5(red)
+}

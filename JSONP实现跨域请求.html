@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function JsonpCallback(data){
+      console.log(data)
+    }
+    var data = {name: 'radio', age: 25}
+    var url = 'https://www.baidu.com'
+    /* 
+    data: 请求参数, 格式必须是对象形式
+    url: 请求域名
+    处理过程: 先拆分data,使之成为能拼接到url后面的格式 -->  将callbackName加到末尾 -->拼接url  --> 创建script标签,指定其src为拼接好的URL --> 将script标签插入到HTML页面中去
+    */
+    function get_data_from_outside_by_Jsonp(url, data, callbackName){
+      // 先将callback添加到data里面去
+      data.callback = callbackName
+      // 拼接url   
+      for (const k in data) {
+        if (data.hasOwnProperty(k)) {
+          var first = url.indexOf('?') == -1 ? '?' : '&'
+          url = url + first + encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+        }
+      }
+      // 创建script标签, 并指定script的src为
+      var new_script = document.createElement('script')
+      new_script.src = url
+      document.body.appendChild(new_script)
+    }
+    window.onload = get_data_from_outside_by_Jsonp(url, data, 'JsonpCallback')
+  </script>
+</body>
+</html>

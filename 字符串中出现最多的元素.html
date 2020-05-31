@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var str_ary = 'askldfjlkajhdrghoieroindfngkjdfnvzxncjajkdhgkljfdk;jlasdlfknxcv'.split('')
+			var res_array = []
+			str_ary.forEach(item => {
+				var reg = new RegExp(item, 'g')
+				var res_length = str.match(reg).length
+				var item_obj = {
+					alpha: item,
+					count: res_length
+				}
+				res_array.push(item_obj)
+				
+			})
+			console.log(res_array)
+		</script>
+	</body>
+</html>

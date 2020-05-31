@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*  思路： 
+      1. 创建一个script标签
+      2. 将参数铺平到url上去(另设函数)
+      3. 在url后边添加callback名
+      4. 将script标签其他属性补齐
+      5. 将script标签append到页面上去
+     */
+     function haha(e) {
+       console.log(e)
+     }
+    function dealParams(params) {
+      let dealed_params = ''
+      if (typeof params === 'string') dealed_params = params;
+      if (typeof params === 'object') {
+        for (const k in params) {
+          if (params.hasOwnProperty(k)) {
+            var item = params[k]
+            if (typeof item === 'object') {
+              dealed_params += '&' + dealParams(item)
+            } else {
+              dealed_params += `&${k}=${item}`
+            }
+          }
+        }
+      }
+      return dealed_params.slice(1)
+    }
+    
+    function MyJsonp(url, cb_fn, params) {
+      var dealed_params = dealParams(params)
+      if(url.charAt(url.length - 1) === '?'){
+        var dealed_url = `${url}${dealed_params}callback=${cb_fn}`
+      } else {
+        var dealed_url = `${url}?${dealed_params}callback=${cb_fn}`
+      }
+      var script = document.createElement('script')
+      script.src = dealed_url
+      script.async = true
+      script.type = 'text/javascript'
+      document.body.appendChild(script)
+    }
+    var params = {name:'radio', address: {province: 'guangdong', city: 'shenzhen'}, age: 25}
+    var url = 'https://u.y.qq.com/cgi-bin/musics.fcg?'
+    window.onload = MyJsonp(url, 'haha', params)
+  </script>
+</body>
+</html>

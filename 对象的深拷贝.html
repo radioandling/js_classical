@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    
+    function checkType(target) {
+      return Object.prototype.toString.call(target).slice(8, -1)
+    }
+    function cloneDeep(target) {
+      let result,
+          dataType = checkType(target)
+      if (dataType === 'Object') {
+        result = {}
+      } else if(dataType === 'Array') {
+        result = []
+      } else{
+        return result
+      }
+      for (const k in target) {
+        if (target.hasOwnProperty(k)) {
+          let value = target[i]
+          if (checkType[value] === 'Object' || checkType(value) === 'Array') {
+            result[i] = cloneDeep(value)
+          }else{
+            result[i] = value
+          }
+        }
+      }
+      return result
+    }
+
+
+  </script>
+</body>
+
+</html>

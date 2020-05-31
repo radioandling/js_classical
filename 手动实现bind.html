@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var name = 'radio',
+    age = 22
+    var obj = {
+      name: 'ling',
+      age: 18
+    }
+    function haha(sex, height) {
+      console.log(this.name, this.age)
+      console.log(sex, height)
+    }
+    Function.prototype.MyBind = function(context){
+      if (typeof this !== 'function') {
+        throw new TypeError('error')
+      }
+      console.log(this)
+      console.log(arguments)
+      const _this = this
+      const args = [...arguments].slice(1)
+      return function F(){
+        if (this instanceof F) {
+          return new _this(...args, ...arguments)
+        }
+        return _this.apply(context, args.concat(...arguments))
+      }
+    }
+    haha.MyBind(obj)('boy', '175cm')
+  </script>
+</body>
+</html>

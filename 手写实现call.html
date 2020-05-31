@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var name = 'radio'
+    var age = 25
+    function haha(wawa, nana) {
+      console.log(arguments)
+      console.log(this.name, this.age)
+      console.log(wawa, nana)
+    }
+    var obj = {
+      name: 'ling',
+      age: 30
+    }
+    Function.prototype.MyCall = function (context) {
+      if (typeof this !== 'function') {
+        throw new TypeError('Error')
+      }
+      context = context || window
+      const symbol = Symbol()
+      context[symbol] = this
+      const args = [...arguments].slice(1)
+      const result = context[symbol](...args)
+      delete context.fn
+      return result
+    }
+  </script>
+</body>
+</html>

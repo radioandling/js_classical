@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+      1. new会创造一个对象，所以我们需要在内部创建一个对象
+      2. 这个对象，也就是构造函数中的this，可以访问到挂载到this上的任何属性
+      3. 这个对象可以访问构造函数原型上的属性，所以需要将对象与构造函数连接起来
+      3. 返回原始值需要忽略，返回对象正常处理
+     */
+     function Student(name, age) {
+       this.name = name
+       this.age = age
+     }
+     function MyNew(Con, ...args){
+       let obj = {}
+       console.log(args)
+       Object.setPrototypeOf(obj, Con.prototype)
+       let result = Con.apply(obj, args)
+       return result instanceof Object ? result : obj
+     }
+     var student_andy = MyNew (Student, 'andy', 20)
+     console.log(student_andy)
+
+  </script>
+</body>
+</html>

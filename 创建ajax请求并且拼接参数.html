@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 创建XHR对象, 考虑了兼容性
+    function createXHR(){
+      if (window.XMLHttpRequest) {
+        return new XMLHttpRequest()
+      } else {
+        return new ActiveXObject('Microsoft.XMLHTTP')
+      }
+    }
+    // 拼接参数到URL中
+    function addParamToURL(url, data){
+      for (const k in data) {
+          console.log(k, data[k])
+          var first = url.indexOf('?') == -1 ? '?' : '&'
+          url = url + first + encodeURIComponent(k) + '=' + encodeURIComponent(data[k])   
+      }
+      return url
+    }
+    // 首先要创建XHR对象, 同时也要考虑兼容性
+    var xhr = createXHR()
+    // 给浏览器添加readyStateChange事件, 保证兼容性
+    xhr.readyStateChange = function(){
+      if (xhr.readyState == 4) {
+        if((xhr.status >= 200 && xhr.status < 300) || xhr.status< 300){
+          console.log(xhr.responseText)
+        } else {
+          console.log('request is unsuccessful' + xhr.status)
+        }
+      }
+    }
+    // 开启并且配置功能
+    var data = {name:'radio', age:24}
+    var url = 'https://www.baidu.com'
+    var URL = addParamToURL(url, data)
+    xhr.open('get', URL, false)
+    // 发送请求
+    xhr.send(null)
+
+
+  </script>
+</body>
+</html>

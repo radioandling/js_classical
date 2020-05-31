@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var name = 'radio', age = 30
+    var obj = {
+      name: 'ling',
+      age: 33
+    }
+    function haha(c1, c2){
+      console.log(c1, c2)
+      console.log(this.name, this.age)
+    }
+    Function.prototype.MyApply = function(context){
+      if (typeof this !== 'function') {
+        throw new TypeError('Error')
+      }
+      context = context || window
+      context.fn = this
+      if (arguments[1]) {
+        var result = context.fn(...arguments[1])
+      } else {
+        var result = context.fn()
+      }
+      delete context.fn
+      return result
+    }
+    haha.MyApply(obj, ['wuwu', 'huhu'])
+  </script>
+</body>
+</html>
